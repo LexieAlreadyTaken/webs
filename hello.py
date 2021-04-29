@@ -81,6 +81,16 @@ def sendmessage():
         db.rollback()
     return "", 666, {"ContentType": "application/json"}
 
+@app.route('/upload', methods=['POST'])
+def upload():
+    print("here")
+    print(request.files)
+    f = request.files.to_dict()['file']
+    print(f)
+    upload_path = 'C:\\store\\'+f.filename  #注意：没有的文件夹一定要先创建，不然会提示没有该路径
+    print(upload_path)
+    f.save(upload_path)
+    return "OKAY!", 200, {"ContentType": "application/json"}
 
 if __name__ == "__main__":
     app.run()
